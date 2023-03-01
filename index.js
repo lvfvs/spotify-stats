@@ -24,7 +24,7 @@ const generateRandomisedString = (length) => {
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (let i = 0; i < length; i++) {
-    string += possible.charAt(Match.floor(Math.random() * possible.length));
+    string += possible.charAt(Math.floor(Math.random() * possible.length));
   }
 
   return string;

@@ -69,6 +69,7 @@ app.get("/callback", (req, res) => {
   })
     .then((response) => {
       if (response.status === 200) {
+        // Formatting the JSON output
         res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
       } else {
         res.send(response);

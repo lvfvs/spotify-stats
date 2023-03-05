@@ -1,4 +1,4 @@
-import { accessToken } from "./spotify";
+import { accessToken, logout } from "./spotify";
 import "./App.css";
 import { useEffect, useState } from "react";
 
@@ -22,7 +22,10 @@ function App() {
             Login to Spotify
           </a>
         ) : (
-          <h1>Logged in</h1>
+          <>
+            <h1>Logged in</h1>
+            <button onClick={logout}>Logout</button>
+          </>
         )}
       </header>
     </div>

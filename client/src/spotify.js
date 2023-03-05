@@ -25,6 +25,18 @@ const getAccessToken = () => {
 
   const hasError = urlParams.get("error");
 
+  const hasTokenExpired = () => {
+    const { accessToken, timestamp, expiryTime } = LOCALSTORAGE_VALUES;
+
+    if (!accessToken || !timestamp) {
+      return false;
+    }
+
+    const millisecondsElapsed = Date.now() - Number(timestamp);
+
+    return millisecondsElapsed / 1000 > Number(expiryTime);
+  };
+
   if (
     hasError ||
     hasTokenExpired() ||

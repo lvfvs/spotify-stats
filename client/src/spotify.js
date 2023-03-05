@@ -1,3 +1,5 @@
+import { urlencoded } from "express";
+
 const LOCALSTORAGE_KEYS = {
   accessToken: "spotify_access_token",
   refreshToken: "spotify_refresh_token",
@@ -14,11 +16,41 @@ const LOCALSTORAGE_VALUES = {
 
 const getAccessToken = () => {
   const queryString = window.location.search;
-  const urlSearchParams = new URLSearchParams(queryString);
-  const accessToken = urlSearchParams.get("access_token");
-  const refreshToken = urlSearchParams.get("refresh_token");
+  const urlParams = new URLSearchParams(queryString);
+  const queryParams = {
+    [LOCALSTORAGE_KEYS.accessToken]: urlParams.get("access_token"),
+    [LOCALSTORAGE_KEYS.refreshToken]: urlParams.get("refresh_token"),
+    [LOCALSTORAGE_KEYS.expiryTime]: urlParams.get("expires_in"),
+  };
 
-  return accessToken;
+  const hasError = urlParams.get("error");
+
+  if (
+    hasError ||
+    hasTokenExpired() ||
+    LOCALSTORAGE_VALUES.accessToken === "undefined"
+  ) {
+    refreshToken();
+  }
+
+  if (
+    LOCALSTORAGE_VALUES.accessToken &&
+    LOCALSTORAGE_VALUES.accessToken !== "undefined"
+  ) {
+    return LOCALSTORAGE_VALUES.accessToken;
+  }
+
+  if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
+    for (const property in queryParams) {
+      window.localStorage.setItem(property, queryParams[property]);
+    }
+
+    window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
+
+    return queryParams[LOCALSTORAGE_KEYS.accessToken];
+  }
+
+  return false;
 };
 
 export const accessToken = getAccessToken();

@@ -1,12 +1,24 @@
-import { accessToken, logout } from "./spotify";
 import "./App.css";
+import { accessToken, logout, getCurrentUserProfile } from "./spotify";
 import { useEffect, useState } from "react";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     setToken(accessToken);
+
+    const fetchData = async () => {
+      try {
+        const { data } = await getCurrentUserProfile();
+        setProfile(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -25,6 +37,8 @@ function App() {
           <>
             <h1>Logged in</h1>
             <button onClick={logout}>Logout</button>
+
+            {profile && <h1>{profile.display_name}</h1>}
           </>
         )}
       </header>

@@ -1,6 +1,7 @@
-import "./App.css";
 import { accessToken, logout, getCurrentUserProfile } from "./spotify";
 import { useEffect, useState } from "react";
+import { Login } from "./components";
+import { GlobalStyle } from "./styles";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -23,16 +24,10 @@ function App() {
 
   return (
     <div className="App">
+      <GlobalStyle />
       <header className="App-header">
         {!token ? (
-          <a
-            className="App-link"
-            href="http://localhost:8888/login"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Login to Spotify
-          </a>
+          <Login />
         ) : (
           <>
             <h1>Logged in</h1>

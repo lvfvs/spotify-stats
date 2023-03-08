@@ -120,3 +120,5 @@ export const getTopTracks = (timeRange) => {
 export const getTopArtists = (timeRange) => {
   axios.get(`/me/top/tracks?limit=50&time_range=${timeRange}`);
 };
+
+export const search = () => {};

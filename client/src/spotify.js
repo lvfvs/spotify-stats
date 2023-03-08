@@ -116,9 +116,10 @@ export const getTopTracks = (timeRange) => {
   axios.get(`/me/top/tracks?limit=50&time_range=${timeRange}`);
 };
 
-// // https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
 export const getTopArtists = (timeRange) => {
   axios.get(`/me/top/tracks?limit=50&time_range=${timeRange}`);
 };
 
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/search
 export const search = () => {};

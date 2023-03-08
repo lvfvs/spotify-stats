@@ -108,9 +108,10 @@ axios.defaults.baseURL = "https://api.spotify.com/v1";
 axios.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
 axios.defaults.headers["Content-Type"] = "application/json";
 
-/**
- * GET current user's profile
- * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
- *
- */
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
 export const getCurrentUserProfile = () => axios.get("/me");
+
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
+export const getTopTracks = (timeRange) => {
+  axios.get(`/me/top/tracks?limit=10&time_range=${timeRange}`);
+};
